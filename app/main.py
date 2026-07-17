@@ -686,11 +686,14 @@ def ats_score(
 
 
 
-    resume_text = extract_text_from_pdf(
+   resume_text = extract_text_from_pdf(file.file)
 
-        file_path
+print("========== Resume Text ==========")
+print(resume_text)
+print("=================================")
 
-    )
+score = calculate_ats_score(resume_text)
+
 
 
 
