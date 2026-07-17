@@ -1,45 +1,60 @@
-import os
-import google.generativeai as genai
-import google.api_core.exceptions
-from dotenv import load_dotenv
-
-load_dotenv()
-
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-
-model = genai.GenerativeModel("gemini-2.0-flash")
-
+import re
 
 def calculate_ats_score(resume_text):
 
-    prompt = f"""
-You are an ATS resume evaluator.
+    score = 0
 
-Analyze this resume:
+    resume = resume_text.lower()
 
-{resume_text}
+    skills = [
+        "python",
+        "java",
+        "c",
+        "c++",
+        "sql",
+        "html",
+        "css",
+        "javascript",
+        "react",
+        "fastapi",
+        "django",
+        "flask",
+        "git",
+        "github"
+    ]
 
-Give response in this format:
+    found = []
 
-ATS Score: XX/100
+    for skill in skills:
+        if skill in resume:
+            found.append(skill)
+            score += 5
 
-Skills Match:
+    if "education" in resume:
+        score += 10
 
-Experience:
+    if "project" in resume:
+        score += 15
 
-Projects:
+    if "experience" in resume:
+        score += 10
+
+    if "internship" in resume:
+        score += 10
+
+    if score > 100:
+        score = 100
+
+    return f"""
+ATS Score: {score}/100
+
+Skills Found:
+{', '.join(found) if found else 'No major skills detected'}
 
 Suggestions:
-
-Keep the answer professional.
+• Add more technical skills.
+• Include measurable project achievements.
+• Add internships if available.
+• Keep resume to one page.
+• Use ATS-friendly headings.
 """
-
-    try:
-        response = model.generate_content(prompt)
-        return response.text
-
-    except google.api_core.exceptions.ResourceExhausted:
-        return "⚠️ Gemini API quota exceeded. Please try again later or use another API key."
-
-    except Exception as e:
-        return f"Error: {str(e)}"
