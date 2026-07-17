@@ -12,10 +12,7 @@ genai.configure(
 )
 
 
-model = genai.GenerativeModel(
-    "gemini-2.5-flash-lite"
-)
-
+model = genai.GenerativeModel("gemini-2.0-flash")
 
 
 def calculate_ats_score(resume_text):
