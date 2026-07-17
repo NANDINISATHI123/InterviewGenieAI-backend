@@ -38,13 +38,15 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "https://interviewgenieai-e1iueufng-nandinisathi123-1467s-projects.vercel.app",
-        "https://interviewgenieai-zeta.vercel.app"
+        "https://interviewgenieai-zeta.vercel.app",
+        "https://interviewgenieai-git-main-nandinisathi123-1467s-projects.vercel.app",
+        "https://interviewgenieai-953otx8bt-nandinisathi123-1467s-projects.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 # ---------------- HOME ----------------
 
 
