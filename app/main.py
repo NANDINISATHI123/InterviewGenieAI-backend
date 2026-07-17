@@ -34,19 +34,17 @@ app = FastAPI()
 
 # ---------------- CORS ----------------
 
-from fastapi.middleware.cors import CORSMiddleware
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
         "https://interviewgenieai-e1iueufng-nandinisathi123-1467s-projects.vercel.app",
+        "https://interviewgenieai-zeta.vercel.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 # ---------------- HOME ----------------
 
 
