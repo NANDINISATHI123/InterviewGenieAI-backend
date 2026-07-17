@@ -1,5 +1,6 @@
 import os
 import google.generativeai as genai
+import google.api_core.exceptions
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -28,6 +29,12 @@ Resume:
 {resume_text}
 """
 
-    response = model.generate_content(prompt)
+    try:
+        response = model.generate_content(prompt)
+        return response.text
 
-    return response.text
+    except google.api_core.exceptions.ResourceExhausted:
+        return "⚠️ Gemini API quota exceeded. Please try again later or use another API key."
+
+    except Exception as e:
+        return f"Error: {str(e)}"
