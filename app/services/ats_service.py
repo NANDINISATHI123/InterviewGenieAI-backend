@@ -11,7 +11,7 @@ def calculate_ats_score(resume_text):
         "java",
         "c",
         "c++",
-        "sql",
+        "sql",   
         "html",
         "css",
         "javascript",

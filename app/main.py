@@ -644,75 +644,42 @@ def profile(email:str):
     finally:
 
         db.close()
-        # ---------------- ATS SCORE ----------------
-
+ # ---------------- ATS SCORE ----------------
 
 @app.post("/ats-score")
 def ats_score(
     resume: UploadFile = File(...)
 ):
 
-
-    upload_folder="uploads"
-
-
+    upload_folder = "uploads"
 
     if not os.path.exists(upload_folder):
-
         os.makedirs(upload_folder)
 
-
-
-    file_path=os.path.join(
-
+    file_path = os.path.join(
         upload_folder,
-
         resume.filename
-
     )
 
-
-
-    with open(file_path,"wb") as buffer:
-
-
+    with open(file_path, "wb") as buffer:
         shutil.copyfileobj(
-
             resume.file,
-
             buffer
-
         )
 
+    # Extract text from uploaded PDF
+    resume_text = extract_text_from_pdf(file_path)
 
+    print("========== Resume Text ==========")
+    print(resume_text)
+    print("=================================")
 
-   resume_text = extract_text_from_pdf(file.file)
-
-print("========== Resume Text ==========")
-print(resume_text)
-print("=================================")
-
-score = calculate_ats_score(resume_text)
-
-
-
-
-    score = calculate_ats_score(
-
-        resume_text
-
-    )
-
-
+    # Calculate ATS Score
+    score = calculate_ats_score(resume_text)
 
     return {
-
-
-        "filename":resume.filename,
-
-        "ats_score":score
-
-
+        "filename": resume.filename,
+        "ats_score": score
     }
 # ---------------- ANALYTICS ----------------
 
