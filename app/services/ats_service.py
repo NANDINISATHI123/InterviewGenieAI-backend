@@ -1,60 +1,121 @@
-import re
-
 def calculate_ats_score(resume_text):
 
-    score = 0
+    if not resume_text:
+        return {
+            "score": 0,
+            "skills_found": [],
+            "suggestions": [
+                "Unable to extract resume text"
+            ]
+        }
+
 
     resume = resume_text.lower()
 
-   skills = [
-    "python","java","c","c++","sql","mysql","postgresql",
-    "html","css","javascript","typescript",
-    "react","nextjs","tailwind","bootstrap",
-    "fastapi","django","flask","node","express",
-    "git","github","docker","linux",
-    "aws","azure","firebase","supabase",
-    "mongodb",
-    "machine learning","deep learning",
-    "artificial intelligence","nlp",
-    "opencv","tensorflow","keras","pytorch",
-    "pandas","numpy","scikit-learn",
-    "rest api","api","jwt","oauth",
-    "data structures","algorithms",
-    "oops","dbms","operating system",
-    "computer networks"
-]
+
+    skills = [
+        "python",
+        "java",
+        "c++",
+        "c",
+        "sql",
+        "html",
+        "css",
+        "javascript",
+        "typescript",
+        "react",
+        "node",
+        "fastapi",
+        "django",
+        "flask",
+        "git",
+        "github",
+        "mongodb",
+        "postgresql",
+        "machine learning",
+        "artificial intelligence",
+        "aws",
+        "docker"
+    ]
+
+
     found = []
 
+    score = 0
+
+
     for skill in skills:
-        if skill in resume:
+
+        if skill.lower() in resume:
+
             found.append(skill)
+
             score += 5
 
-    if "education" in resume:
-        score += 10
 
-    if "project" in resume:
-        score += 15
 
-    if "experience" in resume:
-        score += 10
+    sections = [
+        "education",
+        "project",
+        "experience",
+        "internship",
+        "certification",
+        "achievement"
+    ]
 
-    if "internship" in resume:
-        score += 10
+
+    for section in sections:
+
+        if section in resume:
+
+            score += 10
+
+
 
     if score > 100:
+
         score = 100
 
-    return f"""
-ATS Score: {score}/100
 
-Skills Found:
-{', '.join(found) if found else 'No major skills detected'}
 
-Suggestions:
-• Add more technical skills.
-• Include measurable project achievements.
-• Add internships if available.
-• Keep resume to one page.
-• Use ATS-friendly headings.
-"""
+    suggestions = []
+
+
+    if len(found) < 5:
+
+        suggestions.append(
+            "Add more technical skills"
+        )
+
+
+    if "project" not in resume:
+
+        suggestions.append(
+            "Add project descriptions with technologies used"
+        )
+
+
+    if "experience" not in resume:
+
+        suggestions.append(
+            "Add internship or experience details"
+        )
+
+
+    if not suggestions:
+
+        suggestions.append(
+            "Resume looks ATS friendly"
+        )
+
+
+
+    return {
+
+        "score": score,
+
+        "skills_found": found,
+
+        "suggestions": suggestions
+
+    }
