@@ -6,23 +6,23 @@ def calculate_ats_score(resume_text):
 
     resume = resume_text.lower()
 
-    skills = [
-        "python",
-        "java",
-        "c",
-        "c++",
-        "sql",   
-        "html",
-        "css",
-        "javascript",
-        "react",
-        "fastapi",
-        "django",
-        "flask",
-        "git",
-        "github"
-    ]
-
+   skills = [
+    "python","java","c","c++","sql","mysql","postgresql",
+    "html","css","javascript","typescript",
+    "react","nextjs","tailwind","bootstrap",
+    "fastapi","django","flask","node","express",
+    "git","github","docker","linux",
+    "aws","azure","firebase","supabase",
+    "mongodb",
+    "machine learning","deep learning",
+    "artificial intelligence","nlp",
+    "opencv","tensorflow","keras","pytorch",
+    "pandas","numpy","scikit-learn",
+    "rest api","api","jwt","oauth",
+    "data structures","algorithms",
+    "oops","dbms","operating system",
+    "computer networks"
+]
     found = []
 
     for skill in skills:

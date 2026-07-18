@@ -7,7 +7,7 @@ load_dotenv()
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
-model = genai.GenerativeModel("gemini-2.0-flash")
+model = genai.GenerativeModel("gemini-2.5-flash-lite")
 
 
 def generate_questions(resume_text):
@@ -15,14 +15,12 @@ def generate_questions(resume_text):
     prompt = f"""
 You are an experienced software engineering interviewer.
 
-Based on the following resume, generate:
+Based on the following resume generate:
 
 1. 10 Technical Interview Questions
 2. 5 HR Interview Questions
 3. 5 Project-Based Interview Questions
 4. 5 Coding Questions
-
-Return the answer in markdown with headings.
 
 Resume:
 
@@ -34,7 +32,7 @@ Resume:
         return response.text
 
     except google.api_core.exceptions.ResourceExhausted:
-        return "⚠️ Gemini API quota exceeded. Please try again later or use another API key."
+        return "⚠️ Gemini API quota exceeded. Please try again later."
 
     except Exception as e:
-        return f"Error: {str(e)}"
+        return f"Error generating interview questions: {str(e)}"
